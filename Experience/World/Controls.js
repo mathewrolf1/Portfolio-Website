@@ -39,7 +39,7 @@ export default class Controls {
     setupASScroll() {
         // https://github.com/ashthornton/asscroll
         const asscroll = new ASScroll({
-            ease: 0.5,
+            ease: 0.3,
             disableRaf: true,
         });
 
@@ -262,7 +262,7 @@ export default class Controls {
                                 trigger: section,
                                 start: "top bottom",
                                 end: "top top",
-                                scrub: 0.6,
+                                scrub: 0.3,
                             },
                         });
                         GSAP.to(section, {
@@ -271,7 +271,7 @@ export default class Controls {
                                 trigger: section,
                                 start: "bottom bottom",
                                 end: "bottom top",
-                                scrub: 0.6,
+                                scrub: 0.3,
                             },
                         });
                     } else {
@@ -281,7 +281,7 @@ export default class Controls {
                                 trigger: section,
                                 start: "top bottom",
                                 end: "top top",
-                                scrub: 0.6,
+                                scrub: 0.3,
                             },
                         });
                         GSAP.to(section, {
@@ -290,7 +290,7 @@ export default class Controls {
                                 trigger: section,
                                 start: "bottom bottom",
                                 end: "bottom top",
-                                scrub: 0.6,
+                                scrub: 0.3,
                             },
                         });
                     }
@@ -300,7 +300,7 @@ export default class Controls {
                             trigger: section,
                             start: "top top",
                             end: "bottom bottom",
-                            scrub: 0.4,
+                            scrub: 0.2,
                             pin: this.progressWrapper,
                             pinSpacing: false,
                         },

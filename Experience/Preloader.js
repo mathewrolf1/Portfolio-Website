@@ -42,7 +42,7 @@ export default class Preloader extends EventEmitter {
       this.timeline.set(".animatedis", { y: 0, yPercent: 100 });
       this.timeline.to(".preloader", {
         opacity: 0,
-        delay: 1,
+        delay: 0.5,
         onComplete: () => {
           document.querySelector(".preloader").classList.add("hidden");
         },
@@ -54,12 +54,12 @@ export default class Preloader extends EventEmitter {
             y: 1.4,
             z: 1.4,
             ease: "back.out(2.5)",
-            duration: 0.7,
+            duration: 0.4,
           })
           .to(this.room.position, {
             x: -1,
             ease: "power1.out",
-            duration: 0.7,
+            duration: 0.4,
           });
       } else {
         this.timeline
@@ -68,22 +68,22 @@ export default class Preloader extends EventEmitter {
             y: 1.4,
             z: 1.4,
             ease: "back.out(2.5)",
-            duration: 0.7,
+            duration: 0.4,
           })
           .to(this.room.position, {
             z: -1,
             ease: "power1.out",
-            duration: 0.7,
+            duration: 0.4,
           });
       }
       this.timeline
         .to(".intro-text .animatedis", {
           yPercent: 0,
-          stagger: 0.05,
+          stagger: 0.03,
           ease: "back.out(1.7)",
         })
         .to(
-          ".arrow-svg-wrapper",
+          ".scroll-indicator-wrapper",
           {
             opacity: 1,
           },
@@ -109,13 +109,13 @@ export default class Preloader extends EventEmitter {
           ".intro-text .animatedis",
           {
             yPercent: 100,
-            stagger: 0.05,
+            stagger: 0.03,
             ease: "back.in(1.7)",
           },
           "fadeout"
         )
         .to(
-          ".arrow-svg-wrapper",
+          ".scroll-indicator-wrapper",
           {
             opacity: 0,
           },
@@ -174,7 +174,7 @@ export default class Preloader extends EventEmitter {
             x: 0,
             y: 0,
             z: 0,
-            duration: 1,
+            duration: 0.6,
           },
           "introtext"
         )
@@ -200,7 +200,7 @@ export default class Preloader extends EventEmitter {
           ".first-sub .animatedis",
           {
             yPercent: 0,
-            stagger: 0.07,
+            stagger: 0.04,
             ease: "back.out(1.7)",
           },
           "introtext"
@@ -209,7 +209,7 @@ export default class Preloader extends EventEmitter {
           ".second-sub .animatedis",
           {
             yPercent: 0,
-            stagger: 0.07,
+            stagger: 0.04,
             ease: "back.out(1.7)",
           },
           "introtext"
@@ -221,7 +221,7 @@ export default class Preloader extends EventEmitter {
             y: 1,
             z: 1,
             ease: "back.out(2.2)",
-            duration: 0.5,
+            duration: 0.3,
           },
           ">-0.5"
         )
@@ -232,7 +232,7 @@ export default class Preloader extends EventEmitter {
             y: 1,
             z: 1,
             ease: "back.out(2.2)",
-            duration: 0.5,
+            duration: 0.3,
           },
           ">-0.4"
         )
@@ -243,7 +243,7 @@ export default class Preloader extends EventEmitter {
             y: 1,
             z: 1,
             ease: "back.out(2.2)",
-            duration: 0.5,
+            duration: 0.3,
           },
           ">-0.3"
         )
@@ -254,7 +254,7 @@ export default class Preloader extends EventEmitter {
             y: 1,
             z: 1,
             ease: "back.out(2.2)",
-            duration: 0.5,
+            duration: 0.3,
           },
           ">-0.2"
         )
@@ -265,7 +265,7 @@ export default class Preloader extends EventEmitter {
             y: 1,
             z: 1,
             ease: "back.out(2.2)",
-            duration: 0.5,
+            duration: 0.3,
           },
           ">-0.1"
         )
@@ -276,7 +276,7 @@ export default class Preloader extends EventEmitter {
             y: 1,
             z: 1,
             ease: "back.out(2.2)",
-            duration: 0.5,
+            duration: 0.3,
           },
           ">-0.1"
         )
@@ -285,7 +285,7 @@ export default class Preloader extends EventEmitter {
           y: 1,
           z: 1,
           ease: "back.out(2.2)",
-          duration: 0.5,
+          duration: 0.3,
         })
         .set(this.roomChildren.mini_floor.scale, {
           x: 1,
@@ -299,7 +299,7 @@ export default class Preloader extends EventEmitter {
             y: 1,
             z: 1,
             ease: "back.out(2.2)",
-            duration: 0.5,
+            duration: 0.3,
           },
           "chair"
         )
@@ -310,7 +310,7 @@ export default class Preloader extends EventEmitter {
             y: 1,
             z: 1,
             ease: "back.out(2.2)",
-            duration: 0.5,
+            duration: 0.3,
           },
           "chair"
         )
@@ -319,11 +319,11 @@ export default class Preloader extends EventEmitter {
           {
             y: 4 * Math.PI + Math.PI / 4,
             ease: "power2.out",
-            duration: 1,
+            duration: 0.6,
           },
           "chair"
         )
-        .to(".arrow-svg-wrapper", {
+        .to(".scroll-indicator-wrapper", {
           opacity: 1,
           onComplete: resolve,
         });
@@ -368,6 +368,14 @@ export default class Preloader extends EventEmitter {
     window.addEventListener("wheel", this.scrollOnceEvent);
     window.addEventListener("touchstart", this.touchStart);
     window.addEventListener("touchmove", this.touchMove);
+    
+    // Auto-scroll after "Welcome to my portfolio!" appears
+    setTimeout(() => {
+      if (this.moveFlag) {
+        this.removeEventListeners();
+        this.playSecondIntro();
+      }
+    }, 2000); // 2 seconds after intro text appears
   }
   async playSecondIntro() {
     this.moveFlag = false;
